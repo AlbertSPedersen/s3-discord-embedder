@@ -32,7 +32,9 @@ def index(object_path):
                     <meta name="theme-color" content="#00FF00">
                     <meta property="og:title" content="{object_path.split('/')[-1]}">
                     <meta content="{config['s3_endpoint'] + object_path}" property="og:image">
+                    <meta name="twitter:card" content="summary_large_image">
                     <link type="application/json+oembed" href="https://cdn.asp.gg/oembed/{object_path}" />
+                    <meta content="All-in-one voice and text chat for gamers that's free, secure, and works on both your desktop and phone. Stop paying for TeamSpeak servers and hassling with Skype. Simplify your life. ```py def test(): print('Hello!')```**testy**__ig__" property="og:description">
                 </head>
             </html>'''
         else:
@@ -48,7 +50,6 @@ def oembed(object_path):
         if request.headers.get('user-agent') == 'Mozilla/5.0 (compatible; Discordbot/2.0; +https://discordapp.com)':
             return jsonify(
                 {
-                    'type': 'photo' if response.headers.get('content-type').startswith('image') else 'video' if response.headers.get('content-type').startswith('video') else 'link',
                     'author_name': size_string(int(response.headers.get('content-length'))) + ' | ' + response.headers.get('content-type'),
                     'provider_name': response.headers.get('last-modified')
                 }
