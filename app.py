@@ -34,7 +34,10 @@ def index(object_path):
                     <meta content="{config['s3_endpoint'] + object_path}" property="og:image">
                     <meta name="twitter:card" content="summary_large_image">
                     <link type="application/json+oembed" href="https://cdn.asp.gg/oembed/{object_path}" />
-                    <meta content="All-in-one voice and text chat for gamers that's free, secure, and works on both your desktop and phone. Stop paying for TeamSpeak servers and hassling with Skype. Simplify your life. ```py def test(): print('Hello!')```**testy**__ig__" property="og:description">
+                    <meta content="```py
+                        def test():
+                            print('hello')
+                    ```" property="og:description">
                 </head>
             </html>'''
         else:
