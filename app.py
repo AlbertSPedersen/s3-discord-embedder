@@ -41,6 +41,21 @@ def index(object_path):
                     </style>
                 </head>
             </html>'''
+            print(f'''<!DOCTYPE html>
+            <html>
+                <head>
+                    <meta name="theme-color" content="#00FF00">
+                    <meta property="og:title" content="{object_path.split('/')[-1]}">
+                    <meta content="{config['s3_endpoint'] + object_path}" property="og:image">
+                    <style type="application/json+oembed">
+                    '{'
+                        "type": "{'photo' if response.headers.get('content-type').startswith('image') else 'video' if response.headers.get('content-type').startswith('video') else 'link'}",
+                        "author_name": "{size_string(int(response.headers.get('content-length'))) + ' | ' + response.headers.get('content-type')}",
+                        "provider_name": "{response.headers.get('last-modified')}"
+                    '}'
+                    </style>
+                </head>
+            </html>''')
         else:
             return redirect(config['s3_endpoint'] + object_path)
     else:
