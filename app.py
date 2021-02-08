@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, abort
+from flask import Flask, request, redirect, jsonify, abort
 from pathlib import Path
 import requests
 import json
