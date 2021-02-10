@@ -10,3 +10,6 @@ A poorly written Flask app that makes fancy Discord embeds from S3 objects, aye!
     "bind_port": 80
 }
 ```
+
+### Example
+![example.png](example.png)
