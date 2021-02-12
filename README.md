@@ -5,7 +5,7 @@ A poorly written Flask app that makes fancy Discord embeds from S3 objects, aye!
 ```json
 {
     "app_url": "https://cdn.example.com",
-    "s3_endpoint": "https://example.fra1.digitaloceanspaces.com/",
+    "s3_endpoint": "https://example.fra1.digitaloceanspaces.com",
     "bind_address": "0.0.0.0",
     "bind_port": 80
 }
