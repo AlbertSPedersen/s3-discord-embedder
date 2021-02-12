@@ -23,7 +23,8 @@ def size_string(size):
 
 @app.route('/<path:object_path>')
 def index(object_path):
-    response = requests.head(config['s3_endpoint'] + '/' + object_path)
+    object_path = '/' + object_path
+    response = requests.head(config['s3_endpoint'] + object_path)
     if response.status_code != 403:
         if request.headers.get('user-agent') == 'Mozilla/5.0 (compatible; Discordbot/2.0; +https://discordapp.com)':
             return f'''<!DOCTYPE html>
@@ -31,19 +32,20 @@ def index(object_path):
                 <head>
                     <meta name="theme-color" content="#00FF00">
                     <meta property="og:title" content="{object_path.split('/')[-1]}">
-                    <meta content="{config['s3_endpoint'] + '/' + object_path}" property="og:image">
-                    <link type="application/json+oembed" href="{config['app_url']}/oembed/{object_path}" />
+                    <meta content="{config['s3_endpoint'] + object_path}" property="og:image">
+                    <link type="application/json+oembed" href="{config['app_url']}/oembed{object_path}" />
                 </head>
             </html>'''
         else:
-            return redirect(config['s3_endpoint'] + '/' + object_path)
+            return redirect(config['s3_endpoint'] + object_path)
     else:
         abort(404)
 
 
 @app.route('/oembed/<path:object_path>')
 def oembed(object_path):
-    response = requests.head(config['s3_endpoint'] + '/' + object_path)
+    object_path = '/' + object_path
+    response = requests.head(config['s3_endpoint'] + object_path)
     if response.status_code != 403:
         if request.headers.get('user-agent') == 'Mozilla/5.0 (compatible; Discordbot/2.0; +https://discordapp.com)':
             return jsonify(
@@ -54,7 +56,7 @@ def oembed(object_path):
                 }
             )
         else:
-            return redirect(config['s3_endpoint'] + '/' + object_path)
+            return redirect(config['s3_endpoint'] + object_path)
     else:
         abort(404)
 
