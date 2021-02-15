@@ -33,7 +33,7 @@ def index(object_path):
                     <meta name="theme-color" content="#00FF00">
                     <meta property="og:title" content="{object_path.split('/')[-1]}">
                     <meta content="{config['s3_endpoint'] + object_path}" property="og:image">
-                    <link type="application/json+oembed" href="{config['app_url']}/oembed{object_path}" />
+                    <link type="application/json" href="{config['app_url']}/oembed{object_path}" />
                 </head>
             </html>'''
         else:
