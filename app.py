@@ -32,7 +32,8 @@ def index(object_path):
                 'author_name': size_string(int(response.headers.get('content-length'))) + ' | ' + response.headers.get('content-type'),
                 'provider_name': response.headers.get('last-modified')
             }
-            some_dict_string = json.dumps(some_dict)
+            some_dict_string = str(some_dict)
+            print(some_dict_string)
             return f'''<!DOCTYPE html>
             <html>
                 <head>
@@ -65,7 +66,6 @@ def oembed(object_path):
             return redirect(config['s3_endpoint'] + object_path)
     else:
         abort(404)
-
 
 if __name__ == '__main__':
     app.run(host=config['bind_address'], port=config['bind_port'])
