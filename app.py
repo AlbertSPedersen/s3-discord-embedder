@@ -27,20 +27,13 @@ def index(object_path):
     response = requests.head(config['s3_endpoint'] + object_path)
     if response.status_code != 403:
         if request.headers.get('user-agent') == 'Mozilla/5.0 (compatible; Discordbot/2.0; +https://discordapp.com)':
-            some_dict = {
-                'type': 'photo' if response.headers.get('content-type').startswith('image') else 'video' if response.headers.get('content-type').startswith('video') else 'link',
-                'author_name': size_string(int(response.headers.get('content-length'))) + ' | ' + response.headers.get('content-type'),
-                'provider_name': response.headers.get('last-modified')
-            }
-            some_dict_string = str(some_dict)
-            print(some_dict_string)
             return f'''<!DOCTYPE html>
             <html>
                 <head>
                     <meta name="theme-color" content="#00FF00">
                     <meta property="og:title" content="{object_path.split('/')[-1]}">
                     <meta content="{config['s3_endpoint'] + object_path}" property="og:image">
-                    <meta itemtype="application/json+oembed" content="{some_dict_string}">
+                    <link type="application/json+oembed" href="{config['app_url']}/oembed{object_path}" />
                 </head>
             </html>'''
         else:
@@ -66,6 +59,7 @@ def oembed(object_path):
             return redirect(config['s3_endpoint'] + object_path)
     else:
         abort(404)
+
 
 if __name__ == '__main__':
     app.run(host=config['bind_address'], port=config['bind_port'])
